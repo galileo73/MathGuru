@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author Gianluigi
+ *
+ */
+module MathGuru {
+}
