@@ -29,7 +29,7 @@ public interface MathGuruIfc {
 	 */
 	int calculateMCM(int num1, int num2);
 	
-	String anglesAddition(Angle angle);
+	void anglesAddition(Angle angle1, Angle angle2);
 	//String anglesSubtraction();
 	//String anglesMultiplier();
 	//String anglesDivision();

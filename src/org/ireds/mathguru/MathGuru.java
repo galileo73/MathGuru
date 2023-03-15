@@ -1,6 +1,7 @@
 /**
  * MathGuru is a class that provides methods to perform mathematical operations.
- * This class allows the user to calculate the MCD of two numbers using the Euclid algorithm.
+ * This class allows the user to calculate the MCD or LCM of two numbers using the Euclid algorithm
+ * and operations with Angles(Degrees, Minutes, Seconds).
  * 
  * @author Gianluigi Rossi
  * @version 1.0
@@ -11,6 +12,7 @@ package org.ireds.mathguru;
 
 import java.util.Scanner;
 
+import org.ireds.mathguru.Impl.Angle;
 import org.ireds.mathguru.Impl.MathGuruImpl;
 import org.ireds.mathguru.ifc.MathGuruIfc;
 
@@ -28,72 +30,72 @@ public class MathGuru {
 	 * @param args command line arguments (not used)
 	 */
 	public static void main(String[] args) {
-		//Instance the MathGuruImpl class
-	    final MathGuruIfc mathGuruInf; 
-        
-        int num1 = 0;
-	    int num2 = 0;
-	    
-	    mathGuruInf = new MathGuruImpl();
-	    
-	    Scanner scanner = new Scanner(System.in);
-	    
-	    boolean validInput = false;
-        while (!validInput) {
-            try {
-                System.out.print("Enter first number: ");
-                num1 = scanner.nextInt();
+		final MathGuruIfc mathGuruInf = new MathGuruImpl();
 
-                System.out.print("Enter second number: ");
-                num2 = scanner.nextInt();
+		try (Scanner scanner = new Scanner(System.in)) {
+			System.out.println("Enter your choice: ");
+			System.out.println("1. Calculate MCD or LCM of two numbers");
+			System.out.println("2. Sum of two Angles (Degrees, Minutes, Seconds)");
+			int mainChoice = scanner.nextInt();
 
-                if (num1 == 0 || num2 == 0) {
-                    throw new IllegalArgumentException("Numbers cannot be zero!");
-                }
+			switch (mainChoice) {
+			case 1:
+				System.out.print("Enter first number: ");
+				int num1 = scanner.nextInt();
 
-                validInput = true;
-            } catch (Exception e) {
-                System.out.println("Invalid input: " + e.getMessage() + " Please try again.");
-                scanner.nextLine(); // clear input buffer
-            }
-        }
-        
-        System.out.println("You entered " + num1 + " and " + num2);
-        System.out.println("Choose an option:");
-        System.out.println("1. Calculate MCD");
-        System.out.println("2. Calculate LCM");
-        
-        int choice = 0;
-        validInput = false;
-        while (!validInput) {
-            try {
-                System.out.print("Enter your choice: ");
-                choice = scanner.nextInt();
+				System.out.print("Enter second number: ");
+				int num2 = scanner.nextInt();
 
-                if (choice < 1 || choice > 2) {
-                    throw new IllegalArgumentException("Invalid choice!");
-                }
+				if (num1 == 0 || num2 == 0) {
+					throw new IllegalArgumentException("Numbers cannot be zero!");
+				}
 
-                validInput = true;
-            } catch (Exception e) {
-                System.out.println("Invalid input: " + e.getMessage() + " Please try again.");
-                scanner.nextLine(); // clear input buffer
-            }
-        }
-        scanner.close();
-        
-        switch (choice) {
-        case 1:
-            int mcd = mathGuruInf.calculateMCD(num1, num2);
-            System.out.println("The MCD of " + num1 + " and " + num2 + " is " + mcd);
-            break;
-        case 2:
-            int lcm = mathGuruInf.calculateMCM(num1, num2);
-            System.out.println("The LCM of " + num1 + " and " + num2 + " is " + lcm);
-            break;
-        default:
-            System.out.println("Invalid choice!");
-            break;
-    }
+				System.out.println("You entered " + num1 + " and " + num2);
+				System.out.println("Choose an option:");
+				System.out.println("1. Calculate MCD");
+				System.out.println("2. Calculate LCM");
+				int choiceNum = scanner.nextInt();
+
+				switch (choiceNum) {
+				case 1:
+					int mcd = mathGuruInf.calculateMCD(num1, num2);
+					System.out.println("The MCD of " + num1 + " and " + num2 + " is " + mcd);
+					break;
+				case 2:
+					int lcm = mathGuruInf.calculateMCM(num1, num2);
+					System.out.println("The LCM of " + num1 + " and " + num2 + " is " + lcm);
+					break;
+				default:
+					throw new IllegalArgumentException("Invalid choice!");
+				}
+				break;
+			case 2:
+				System.out.println("Enter first angle:");
+				System.out.print("Degrees: ");
+				int degrees1 = scanner.nextInt();
+				System.out.print("Minutes: ");
+				int minutes1 = scanner.nextInt();
+				System.out.print("Seconds: ");
+				int seconds1 = scanner.nextInt();
+
+				System.out.println("Enter second angle:");
+				System.out.print("Degrees: ");
+				int degrees2 = scanner.nextInt();
+				System.out.print("Minutes: ");
+				int minutes2 = scanner.nextInt();
+				System.out.print("Seconds: ");
+				int seconds2 = scanner.nextInt();
+
+				Angle angle1 = new Angle(degrees1, minutes1, seconds1);
+				Angle angle2 = new Angle(degrees2, minutes2, seconds2);
+				mathGuruInf.anglesAddition(angle1, angle2);
+				break;
+			default:
+				throw new IllegalArgumentException("Invalid choice!");
+			}
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 }

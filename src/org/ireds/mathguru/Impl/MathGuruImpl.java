@@ -79,4 +79,27 @@ public class MathGuruImpl implements MathGuruIfc {
 		
 	}
 
+	@Override
+	public void anglesAddition(Angle angle1, Angle angle2) {
+		// TODO Auto-generated method stub
+		
+
+        System.out.println("First angle:");
+        System.out.println(angle1.toString());
+        System.out.println("Second angle:");
+        System.out.println(angle2.toString());
+        
+        int totalSeconds = (angle1.getSeconds() + angle2.getSeconds()) % 60;
+        int extraMinutes = (angle1.getSeconds() + angle2.getSeconds()) / 60;
+
+        int totalMinutes = (angle1.getMinutes() + angle2.getMinutes() + extraMinutes) % 60;
+        int extraDegrees = (angle1.getMinutes() + angle2.getMinutes() + extraMinutes) / 60;
+
+        int totalDegrees = angle1.getDegrees() + angle2.getDegrees() + extraDegrees;
+
+        System.out.println("The sum of the two angles is:");
+        System.out.printf("%d° %d' %d''", totalDegrees, totalMinutes, totalSeconds);
+        
+	}
+
 }
